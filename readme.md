@@ -21,6 +21,8 @@ With Spring Boot, the root entry in the ldif file will cause an error that it ha
 `objectclass: extensibleObject`<br>
 `dc: springframework`<br>
 
+This issue is due to line 53 in EmbeddedLdapServerContextSourceFactoryBean already creating the Domain Component
+
 # Misc notes
 
 clicking on .ldif file in Eclipse IDE redirects to native mac contacts
