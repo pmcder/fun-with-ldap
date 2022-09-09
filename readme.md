@@ -11,7 +11,9 @@ This readme describes the solution to the issues encountered with that guide, pr
 
 * The fix is to use the new LDAP classes defined in this Spring article: [Spring Security Without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
 
-* additional information on these classes at [GitHub repo](https://github.com/spring-projects/spring-security/pull/10138)
+* additional information on these classes at: [spring-security/pull/10138](https://github.com/spring-projects/spring-security/pull/10138)
+
+* additional information the WebSecurityConfigurerAdapter can be found at:[spring-security/issues/10822](https://github.com/spring-projects/spring-security/issues/10822)
 
 ##### Issue 2
 With Spring Boot, the root entry in the ldif file will cause an error that it has already been created so delete the following lines from the ldif:<br>
@@ -25,10 +27,10 @@ This issue is due to line 53 in EmbeddedLdapServerContextSourceFactoryBean alrea
 
 # Misc notes
 
-clicking on .ldif file in Eclipse IDE redirects to native mac contacts
+* clicking on .ldif file in Eclipse IDE redirects to native mac contacts
 right click and edit as text file
 
-if using Docker, make sure that jdk on your base image is capable of running classes compiled on the jdk you compiled on
+* if using Docker, make sure that jdk on your base image is capable of running classes compiled on the jdk you compiled on
 otherwise you may see 'has been compiled by a more recent version of the Java Runtime' errors
 
 # Running with Docker
@@ -48,6 +50,18 @@ Port 8080 on the container is mapped to 9090 on the host machine
 1. cd into project directory<br>
 1. run `mvn clean package`
 1. run `java -jar target/authenticating-ldap-0.0.1-SNAPSHOT.jar`
+
+# Using an external LDAP server
+
+If you wish to use an external LDAP server rather than the embedded ldap server, set the property `ldap.useEmbedded=false` in application.properties
+
+Thanks to the following resource on the configurations: [ldap authentication](https://www.jhipster.tech/tips/016_tip_ldap_authentication.html)
+
+For the ldap server, I used the following Docker image: [bitnami/openldap](https://hub.docker.com/r/bitnami/openldap/)
+
+
+
+
 
 
 
