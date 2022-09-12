@@ -53,11 +53,15 @@ Port 8080 on the container is mapped to 9090 on the host machine
 
 # Using an external LDAP server
 
-If you wish to use an external LDAP server rather than the embedded ldap server, set the property `ldap.useEmbedded=false` in application.properties
+* If you wish to use an external LDAP server rather than the embedded ldap server, set the property `ldap.useEmbedded=false` in application.properties
+
+* You will need to edit the `getContextSource()` method in SecurityConfiguration.java to have the correct values for your LDAP server.
 
 Thanks to the following resource on the configurations: [ldap authentication](https://www.jhipster.tech/tips/016_tip_ldap_authentication.html)
 
 For the ldap server, I used the following Docker image: [bitnami/openldap](https://hub.docker.com/r/bitnami/openldap/)
+
+Detailed instructions to come
 
 
 
