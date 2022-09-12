@@ -13,7 +13,7 @@ This readme describes the solution to the issues encountered with that guide, pr
 
 * additional information on these classes at: [spring-security/pull/10138](https://github.com/spring-projects/spring-security/pull/10138)
 
-* additional information the WebSecurityConfigurerAdapter can be found at:[spring-security/issues/10822](https://github.com/spring-projects/spring-security/issues/10822)
+* additional information on the WebSecurityConfigurerAdapter can be found at:[spring-security/issues/10822](https://github.com/spring-projects/spring-security/issues/10822)
 
 ##### Issue 2
 With Spring Boot, the root entry in the ldif file will cause an error that it has already been created so delete the following lines from the ldif:<br>
