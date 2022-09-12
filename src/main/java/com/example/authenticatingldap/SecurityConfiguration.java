@@ -10,6 +10,14 @@ import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceF
 import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
 import org.springframework.security.ldap.userdetails.PersonContextMapper;
 
+/**
+ * 
+ * This file was signficantly modified from the original WebSecurityConfig.java in https://github.com/spring-guides/gs-authenticating-ldap
+ * I have added conditional annotations to change between embedded and external ldap servers
+ * as well as removed extending the deprecated WebSecurityConfigurerAdapter 
+ * 
+ */
+
 @Configuration
 public class SecurityConfiguration {
   
