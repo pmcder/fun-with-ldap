@@ -17,11 +17,14 @@ This readme describes the solution to the issues encountered with that guide, pr
 
 ##### Issue 2
 With Spring Boot, the root entry in the ldif file will cause an error that it has already been created so delete the following lines from the ldif:<br>
-`dn: dc=springframework,dc=org`<br>
-`objectclass: top`<br>
-`objectclass: domain`<br>
-`objectclass: extensibleObject`<br>
-`dc: springframework`<br>
+
+```
+dn: dc=springframework,dc=org
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: springframework
+```
 
 This issue is due to line 53 in EmbeddedLdapServerContextSourceFactoryBean already creating the Domain Component
 
@@ -55,13 +58,33 @@ Port 8080 on the container is mapped to 9090 on the host machine
 
 * If you wish to use an external LDAP server rather than the embedded ldap server, set the property `ldap.useEmbedded=false` in application.properties
 
-* You will need to edit the `getContextSource()` method in SecurityConfiguration.java to have the correct values for your LDAP server.
+* You will need to edit the `getContextSource()` and `authenticiationManager()` methods in SecurityConfiguration.java to have the correct values for your LDAP server.
 
-Thanks to the following resource on the configurations: [ldap authentication](https://www.jhipster.tech/tips/016_tip_ldap_authentication.html)
+Thanks to the following resources on the configurations: 
+* [ldap authentication](https://www.jhipster.tech/tips/016_tip_ldap_authentication.html)
+* [Spring ldap authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/ldap.html)
 
 For the ldap server, I used the following Docker image: [bitnami/openldap](https://hub.docker.com/r/bitnami/openldap/)
+This image can be run with the following command: <br>
 
-Detailed instructions to come
+```
+docker run -p 1389:1389 --detach --rm --name openldap \                                                  
+  --env LDAP_ADMIN_USERNAME=admin \ 
+  --env LDAP_ADMIN_PASSWORD=adminpassword \ 
+  --env LDAP_USERS=customuser \ 
+  --env LDAP_PASSWORDS=custompassword \
+  bitnami/openldap:latest
+  ```
+
+## LDAP troubleshooting
+
+
+* You can change the logging level of your project to trace to additional logging output by adding `--trace` as a program argument to the run configurations if using Eclipse or simply add it to the command in step 3 of "Running Locally" 
+
+* You can test the LDAP connection by running the following command from the command line on the host (this command references the default values for the bitami openldap image):
+`ldapsearch -x -H ldap://localhost:1389 -b dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w adminpassword`
+
+
 
 
 

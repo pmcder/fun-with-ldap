@@ -53,14 +53,15 @@ public class SecurityConfiguration {
       contextSource.afterPropertiesSet();
       return contextSource;
   }
-    
-    @ConditionalOnProperty(prefix="ldap", name="useEmbedded", havingValue="false")
-    @Bean
-    AuthenticationManager ldapAuthenticationManager() {
-        LdapBindAuthenticationManagerFactory factory = 
-            new LdapBindAuthenticationManagerFactory(getContextSource());
-        factory.setUserDnPatterns("uid={0},ou=users");
-        factory.setUserDetailsContextMapper(new PersonContextMapper());
-        return factory.createAuthenticationManager();
-    }
+         
+  @ConditionalOnProperty(prefix="ldap", name="useEmbedded", havingValue="false")
+  @Bean
+  AuthenticationManager authenticationManager(BaseLdapPathContextSource contextSource) {
+    LdapBindAuthenticationManagerFactory factory = new LdapBindAuthenticationManagerFactory(contextSource);
+    factory.setUserSearchFilter("(uid={0})");
+    factory.setUserSearchBase("ou=users");
+    return factory.createAuthenticationManager();
+  }
 }
+  
+  
